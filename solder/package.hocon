@@ -12,7 +12,7 @@ package {
 // loop -- which is the whole reason this file is thirty lines rather than fifty.
 dependencies {
   pico2  { git = "github.com/sysl-lang/pico2",  version = "0.0.8" }
-  solder { git = "github.com/sysl-lang/solder", version = "0.3.0" }
+  solder { git = "github.com/sysl-lang/solder", version = "0.4.0" }
 }
 
 // The heap is the language's, not this program's. The dictionary grows as words are defined and a
