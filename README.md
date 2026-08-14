@@ -47,14 +47,14 @@ cmake -B build-riscv -DPICO_PLATFORM=rp2350-riscv -DPICO_TOOLCHAIN_PATH=/path/to
 
 ## What it costs
 
-**353 KB of flash and 5.3 KB of static RAM**, against the Pico 2 W's 4 MB and 520 KB. Everything else
+**400 KB of flash and 5.3 KB of static RAM**, against the Pico 2 W's 4 MB and 520 KB. Everything else
 the language needs — the dictionary, the stacks, the strings and arrays a program builds — comes off
 the heap as it is asked for, which is what `requires { heap = true }` in `solder/package.hocon` is
 declaring.
 
 For scale, [ogol-pico2](https://github.com/sysl-lang/ogol-pico2) is 189 KB of flash on the same board.
-The difference is mostly the floating-point words: `SIN` and its neighbours reach newlib's libm, and a
-language with no floats does not pay for it.
+The difference is mostly floating point: `SIN` and its neighbours reach newlib's libm, `FORMAT` and
+`PR` reach its float rendering, and a language with no floats pays for none of it.
 
 ## Licence
 
