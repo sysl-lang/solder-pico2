@@ -1,0 +1,45 @@
+// SOLDER on a Raspberry Pi Pico 2 W, over the USB serial port.
+//
+// **This is the desktop console with its first few lines swapped**, and nothing else. Both build a
+// `sysl.term.edit.Editor` and hand it to `sh.sysl.solder.session`; the board's reads the USB port,
+// the desktop's reads standard input after putting the terminal into raw mode. There is no mode to
+// change here, because a USB CDC port has no line discipline to get out of the way of -- which is the
+// reason a line editor had to exist at all.
+//
+// **The read-run-print loop is the language's**, so the two consoles cannot drift: what is left here
+// is the only platform-dependent part, which is where the lines come from and what to do when there
+// is nowhere to leave to.
+
+import sh.sysl.pico2.*
+import sh.sysl.solder.*
+import sysl.term.edit.editor
+import sysl.time.DurationUnits
+
+@export("main")
+boot() -> int =
+    if !init()
+        print("the board did not start")
+        return 1
+
+    // A board prints into nowhere until a host attaches, because the SDK discards stdio output with
+    // no reader -- so the banner is written after this and not before.
+    wait_for_terminal()
+
+    print("SOLDER on a Raspberry Pi Pico 2 W. Type a line, or BYE to leave.")
+    print("")
+
+    var input = console_in()
+    var output = console_out()
+    var ed = editor(&input, &output)
+    var vm = solder()
+
+    session(vm, &ed)
+
+    // `session` returns when `BYE` is typed, and a board has nowhere to return *to*. A hosted console
+    // falls out of `main` and the process ends; here `crt0` would run off the end of the world, so the
+    // request is answered rather than obeyed.
+    print("nothing to leave to -- reset the board")
+
+    loop
+        sleep(1.s)
+end boot

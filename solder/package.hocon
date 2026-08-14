@@ -1,0 +1,24 @@
+// SOLDER on the board -- the language over the USB serial port.
+
+package {
+  name    = "solder-pico2"
+  version = "0.1.0"
+}
+
+// **Both dependencies are coordinates, so this project builds from a fresh clone.**
+//
+// `sh.sysl.pico2` supplies the board: `init`, `wait_for_terminal`, `sleep`, and the port as a
+// `Reader` and a `Writer`. `sh.sysl.solder` supplies the language *and* `session`, the read-run-print
+// loop -- which is the whole reason this file is thirty lines rather than fifty.
+dependencies {
+  pico2  { git = "github.com/sysl-lang/pico2",  version = "0.0.8" }
+  solder { git = "github.com/sysl-lang/solder", version = "0.2.0" }
+}
+
+// The heap is the language's, not this program's. The dictionary grows as words are defined and a
+// string is as long as the person at the keyboard typed, and the sizes of both are what a `Buf` exists
+// to not have to guess. The SDK links newlib's allocator whether or not a program touches it, so what
+// this declares is honest rather than expensive.
+requires {
+  heap = true
+}
