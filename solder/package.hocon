@@ -3,6 +3,7 @@
 package {
   name    = "solder-pico2"
   version = "0.1.0"
+  sysl    = "0.1.0-alpha.8"
 }
 
 // **Both dependencies are coordinates, so this project builds from a fresh clone.**
@@ -21,4 +22,11 @@ dependencies {
 // this declares is honest rather than expensive.
 requires {
   heap = true
+}
+
+// **A freestanding target starts with no C library, and a Pico SDK build links newlib**, so the
+// project says so for both cores `CMakeLists.txt` can select.
+targets {
+  thumb-freestanding-softfp { capabilities { libc = true } }
+  riscv32-freestanding      { capabilities { libc = true } }
 }
