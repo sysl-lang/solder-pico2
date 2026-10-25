@@ -37,7 +37,7 @@ pico_sdk_init()
 
 set(SYSL_ARCHIVE ${CMAKE_CURRENT_BINARY_DIR}/libsolder.a)
 
-# **Both the language and the board are ordinary coordinates**, declared in `solder/package.hocon`, so
+# **Both the language and the board are ordinary coordinates**, declared in `solder/sysl.hocon`, so
 # this project builds from a fresh clone. It did not until `sysl-lang/solder` was tagged v0.1.0 on
 # 2026-08-14.
 #
@@ -91,7 +91,7 @@ add_custom_command(
             "$<$<BOOL:${SYSL_C_DEFINES}>:-D;$<JOIN:${SYSL_C_DEFINES},;-D;>>"
             -o ${SYSL_ARCHIVE}
     DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/solder/main.sysl
-            ${CMAKE_CURRENT_SOURCE_DIR}/solder/package.hocon
+            ${CMAKE_CURRENT_SOURCE_DIR}/solder/sysl.hocon
     COMMENT "Compiling SOLDER and its console for ${SYSL_TARGET}"
     # **`COMMAND_EXPAND_LISTS`, without which the two generator expressions above are useless.** A
     # quoted argument that expands to a `;`-separated list stays *one* argument unless this is given,
