@@ -78,7 +78,7 @@ set(SYSL_C_INCLUDES
 set(SYSL_C_DEFINES $<TARGET_PROPERTY:sysl_solder,COMPILE_DEFINITIONS>)
 
 # **`--include-path pico_sdk=` is a different thing from the bare paths above, and both are wanted.**
-# pico2 v0.0.8 declares in its `package.hocon` that its C includes SDK, lwIP and mbedTLS headers it
+# pico2 declares in its `sysl.hocon` that its C includes SDK, lwIP and mbedTLS headers it
 # does not carry, and a declaration is answered only by a path given under its own name — a bare one
 # deliberately does not, or a requirement would be satisfied by accident here and go unenforced in a
 # project that had not happened to pass the right directory. The named flag is this project saying

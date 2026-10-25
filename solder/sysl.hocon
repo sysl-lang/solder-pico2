@@ -12,7 +12,7 @@ package {
 // `Reader` and a `Writer`. `sh.sysl.solder` supplies the language *and* `session`, the read-run-print
 // loop -- which is the whole reason this file is thirty lines rather than fifty.
 dependencies {
-  pico2  { git = "github.com/sysl-lang/pico2",  version = "0.0.8" }
+  pico2  { git = "github.com/sysl-lang/pico2",  version = "0.0.10" }
   solder { git = "github.com/sysl-lang/solder", version = "0.4.2" }
 }
 
